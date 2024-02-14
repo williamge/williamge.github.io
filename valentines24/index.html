@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>The Title</title>
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <!-- <link type="text/css" rel="stylesheet" href="PATH_TO_CSS"/>-->
     <!-- <script type="text/javascript" src="PATH_TO_JS"></script>-->
@@ -49,7 +49,7 @@
         modalContainer.className = "active";
         modal.className = "active";
         if (step > 1) {
-          modelText.innerText = "knew it 😊";
+          modelText.innerHTML = `<p>knew it 😊</p><img src="https://media2.giphy.com/media/ciOGnfKleV3nc9NQHX/giphy.gif?cid=6104955ejva769yjh3bqx6pzwp9aihhn009xiexq86kocn25&ep=v1_gifs_translate&rid=giphy.gif&ct=g"/>`;
         } else {
           modelText.innerText = "why would u do that 😡";
         }
@@ -72,6 +72,7 @@
         document
           .getElementById("no-button")
           .addEventListener("click", onNoButtonClick);
+
         document
           .getElementById("try-again-button")
           .addEventListener("click", onTryAgainButtonClick);
@@ -80,31 +81,61 @@
     <style type="text/css">
       body {
         background-color: pink;
-        height: 100vh;
-        width: 100vw;
+        height: 100%;
+        width: 100%;
         text-align: center;
 
         background-size: 150px 144px;
         background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 150 144" width="150" height="144" style="opacity: 0.4; filter: grayscale(0.3);"><text x="0em" y="1em" font-size="60" transform="rotate(0 37.5 36)">❤️</text><text x="1.25em" y="2em" font-size="60" transform="rotate(0 112.5 96)">❤️</text></svg>');
+
+        font-size: 1.5em;
+      }
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+
+      #fake-no,
+      #fake-yes {
+        height: 100%;
+        width: 100%;
+      }
+
+      button {
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
       }
 
       #maybe-button,
-      #no-button {
+      #no-button,
+      #try-again-button {
         background-color: aquamarine;
-        width: 5em;
-        height: 5em;
+        width: 5vh;
+        height: 5vh;
 
         display: inline-grid;
+
+        font-size: 1em;
       }
 
       #maybe-button {
-        width: 5em;
-        height: 5em;
+        width: 10vh;
+        height: 5vh;
       }
 
       #no-button {
-        width: 10em;
-        height: 10em;
+        width: 10vh;
+        height: 10vh;
+      }
+
+      #try-again-button {
+        width: 20vh;
+        height: 10vh;
       }
 
       #fake-no,
@@ -115,7 +146,6 @@
       }
 
       #modal-container {
-        background-color: chartreuse;
         position: absolute;
         left: 0;
         width: 100%;
@@ -134,12 +164,21 @@
       }
 
       #modal {
-        background-color: chocolate;
+        background-color: white;
         position: absolute;
         left: 15%;
         width: 70%;
         top: 15%;
         height: 70%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        border: 2px solid black;
+        border-radius: 5px;
+        box-shadow: 0 0 5px 6px hsla(0, 0%, 0%, 0.15);
       }
 
       #modal-container.inactive > #modal {
