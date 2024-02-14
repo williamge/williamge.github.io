@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Title</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <!-- <link type="text/css" rel="stylesheet" href="PATH_TO_CSS"/>-->
+    <!-- <script type="text/javascript" src="PATH_TO_JS"></script>-->
+    <script>
+      console.log("hello");
+
+      let step = 0;
+
+      const MAX_STEPS = 4;
+
+      const onMaybeButtonClick = () => {
+        console.log("onButtonClick");
+
+        const yesButton = document.getElementById("maybe-button");
+
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        const buttonWidth = yesButton.clientWidth;
+        const buttonHeight = yesButton.clientHeight;
+
+        const newX = Math.random() * (width - buttonWidth);
+        const newY = Math.random() * (height - buttonHeight);
+
+        console.log(`newX: ${newX}, newY: ${newY} (${width}x${height})`);
+
+        yesButton.style["left"] = newX + "px";
+        yesButton.style["top"] = newY + "px";
+
+        yesButton.style["display"] = "block";
+        yesButton.style["position"] = "absolute";
+
+        step++;
+        const fakeNoButton = document.getElementById("fake-no");
+        fakeNoButton.style["opacity"] = 1 - step * (1 / MAX_STEPS);
+      };
+
+      const onNoButtonClick = () => {
+        console.log("onNoButtonClick");
+
+        const modalContainer = document.getElementById("modal-container");
+        const modal = document.getElementById("modal");
+        const modelText = document.getElementById("model-text");
+        modalContainer.className = "active";
+        modal.className = "active";
+        if (step > 1) {
+          modelText.innerText = "knew it 😊";
+        } else {
+          modelText.innerText = "why would u do that 😡";
+        }
+      };
+
+      const onTryAgainButtonClick = () => {
+        console.log("onTryAgainButtonClick");
+
+        const modalContainer = document.getElementById("modal-container");
+        const modal = document.getElementById("modal");
+        modalContainer.className = "inactive";
+        modal.className = "inactive";
+      };
+
+      document.addEventListener("DOMContentLoaded", function (event) {
+        document
+          .getElementById("maybe-button")
+          .addEventListener("click", onMaybeButtonClick);
+
+        document
+          .getElementById("no-button")
+          .addEventListener("click", onNoButtonClick);
+        document
+          .getElementById("try-again-button")
+          .addEventListener("click", onTryAgainButtonClick);
+      });
+    </script>
+    <style type="text/css">
+      body {
+        background-color: pink;
+        height: 100vh;
+        width: 100vw;
+        text-align: center;
+
+        background-size: 150px 144px;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 150 144" width="150" height="144" style="opacity: 0.4; filter: grayscale(0.3);"><text x="0em" y="1em" font-size="60" transform="rotate(0 37.5 36)">❤️</text><text x="1.25em" y="2em" font-size="60" transform="rotate(0 112.5 96)">❤️</text></svg>');
+      }
+
+      #maybe-button,
+      #no-button {
+        background-color: aquamarine;
+        width: 5em;
+        height: 5em;
+
+        display: inline-grid;
+      }
+
+      #maybe-button {
+        width: 5em;
+        height: 5em;
+      }
+
+      #no-button {
+        width: 10em;
+        height: 10em;
+      }
+
+      #fake-no,
+      #fake-yes {
+        background-color: aquamarine;
+        grid-column-start: 1;
+        grid-row-start: 1;
+      }
+
+      #modal-container {
+        background-color: chartreuse;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        top: 0;
+        height: 100%;
+      }
+
+      #modal-container.inactive {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      #modal-container.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      #modal {
+        background-color: chocolate;
+        position: absolute;
+        left: 15%;
+        width: 70%;
+        top: 15%;
+        height: 70%;
+      }
+
+      #modal-container.inactive > #modal {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #modal-container.active > #modal {
+        opacity: 1;
+        pointer-events: all;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Valentine's Day</h1>
+      <h2>2024</h2>
+      <h3>Will & Frannie</h3>
+    </header>
+    <div>
+      <p>will U be my valentine's??</p>
+      <button id="maybe-button">Maybe</button>
+      <button id="no-button">
+        <div id="fake-yes">Yes ❤️</div>
+        <div id="fake-no">No 💔</div>
+      </button>
+    </div>
+    <div id="modal-container" class="inactive">
+      <div id="modal">
+        <p id="model-text"></p>
+        <button id="try-again-button">Try Again</button>
+      </div>
+    </div>
+  </body>
+</html>
